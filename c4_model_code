@@ -1,0 +1,79 @@
+workspace {
+
+   
+
+  model {
+
+    user = person "User"
+
+     
+
+    // Context part of the C4 model
+
+    softwareSystem = softwareSystem "Conference System" {
+
+       
+
+      // Define the database container
+
+      database = container "Database"
+
+       
+
+      // Define the application container
+
+      webapp = container "Web Application" {
+
+        // Define relationships
+
+        this -> database "Reads from and writes to"
+
+      }
+
+       
+
+      // Define the API Gateway container
+
+      apiGateway = container "API Gateway" {
+
+        user -> this "uses"
+
+        this -> webapp "forwards requests to"
+
+        webapp -> this "Sends responses to"
+
+      }
+
+    }
+
+  }
+
+   
+
+  views {
+
+    systemContext softwareSystem {
+
+      include *
+
+      autolayout lr
+
+    }
+
+     
+
+    container softwareSystem {
+
+      include *
+
+      autolayout lr
+
+    }
+
+     
+
+    theme default
+
+  }
+
+}
